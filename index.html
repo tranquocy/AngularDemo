@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en" data-ng-app="todo">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Todos App</title>
+        <link rel="stylesheet" href="css/base.css">
+        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/sweetalert.css">
+        <link rel="stylesheet" href="css/app.css">
+    </head>
+    <body>
+        <div data-ng-controller="MainController">
+            <section class="todoapp">
+                <header class="header">
+                    <h1>todos</h1>
+                    <form data-ng-submit="addTodo()">
+                        <input type="text" class="new-todo" data-ng-model="inputTodo" placeholder="What needs to be done?" autofocus>
+                    </form>
+                </header>
+                <!-- This section should be hidden by default and shown when there are todos -->
+                <div data-ng-if="listTodo.length > 0">
+                    <section class="main">
+                        <input class="toggle-all" type="checkbox">
+                        <label for="toggle-all">Mark all as complete</label>
+                        <ul class="todo-list">
+                            <!-- These are here just to show the structure of the list items -->
+                            <!-- List items should get the class `editing` when editing and `completed` when marked as completed -->
+                            <li data-ng-repeat="todo in listTodo track by $index" data-ng-class="{'completed': todo.completed}">
+                                <div class="view">
+                                    <input class="toggle" type="checkbox" data-ng-model="todo.completed">
+                                    <label>{{todo.text}}</label>
+                                    <button class="destroy" data-ng-click="destroy($index)"></button>
+                                </div>
+                                <input class="edit" value="">
+                            </li>
+                        </ul>
+                    </section>
+                    <!-- This footer should hidden by default and shown when there are todos -->
+                    <footer class="footer">
+                        <!-- This should be `0 items left` by default -->
+                        <span class="todo-count"><strong>{{listTodo.length}}</strong> item left</span>
+
+                        <!-- Hidden if no completed items are left ↓ -->
+                        <button class="clear-completed" data-ng-click="clearCompleted()">Clear completed</button>
+                    </footer>
+                </div>
+            </section>
+        </div>
+
+        <!-- Scripts here -->
+        <script src="js/angular.min.js"></script>
+        <script src="js/sweetalert.min.js"></script>
+        <script src="js/SweetAlert.js"></script>
+        <script src="js/angular-local-storage.min.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
